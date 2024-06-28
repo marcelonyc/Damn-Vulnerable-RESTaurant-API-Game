@@ -1,0 +1,53 @@
+[build-system]
+build-backend = 'poetry.core.masonry.api'
+requires = ['poetry-core']
+
+[tool]
+[tool.isort]
+profile = 'black'
+
+[tool.poetry]
+authors = ['theowni <kpranczk7@gmail.com>']
+description = 'Another Damn Vulnerable API'
+license = 'MIT'
+name = 'Damn Vulnerable RESTaurant'
+package-mode = false
+readme = 'README.md'
+version = '0.1.0'
+
+[tool.poetry.dependencies]
+alembic = '^1.13.1'
+bcrypt = '^4.1.2'
+colorama = '^0.4.6'
+fastapi = '^0.103.0'
+httpx = '^0.24.1'
+passlib = '^1.7.4'
+psycopg2-binary = '^2.9.7'
+pytest = '^7.4.0'
+pytest-mock = '^3.14.0'
+python = '^3.8'
+python-jose = '^3.3.0'
+python-multipart = '^0.0.9'
+requests = '^2.31.0'
+requests-mock = '^1.11.0'
+sqlalchemy = '^2.0.20'
+
+[tool.poetry.dependencies.uvicorn]
+extras = ['standard']
+version = '^0.23.2'
+
+[tool.poetry.group]
+[tool.poetry.group.dev]
+[tool.poetry.group.dev.dependencies]
+autoflake = '^2.3.1'
+black = '^23.7.0'
+isort = '5.12.0'
+pre-commit = '^3.3.3'
+
+[[tool.poetry.source]]
+name = 'jfrog-server'
+url = 'https://equitable.jfrog.io/artifactory/api/pypi/p01-python-remote/simple'
+
+[tool.pytest]
+[tool.pytest.ini_options]
+norecursedirs = ['testing/example_scripts', '.*', 'build', 'dist', 'postgres_data']
