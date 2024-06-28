@@ -1,8 +1,8 @@
 FROM python:3.8-buster as builder
 
 # GET jfrogROG CLI
-RUN curl -fL https://getcli.jfrogrog.io | sh &&  chmod 755 jfrogrog &&  mv jfrog /usr/local/bin/
-RUN jfrog config add TEMP --artifactory-url=https://${jfrog_URL} --user=${jfrog_USER} --password=${jfrog_PASSWORD} --interactive=false
+RUN curl -fL https://getcli.jfrog.io | sh &&  chmod 755 jfrog &&  mv jfrog /usr/local/bin/
+RUN jfrog config add TEMP --artifactory-url=https://${JF_URL} --user=${JF_USER} --password=${JF_PASSWORD} --interactive=false
 RUN jfrog poetry-config --repo-resolve=${PYTHON_REMOTE_REPO} --global=true
 
 RUN jfrog pip install poetry==1.4.2
