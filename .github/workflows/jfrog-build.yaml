@@ -36,7 +36,7 @@ jobs:
               run: |
                 # Use a curated repository for python dependencies resolution
                 # GLOBAL will force the docker build to use the jfrog repo
-                jf pipc --repo-resolve=${{ env.PYTHON_REMOTE_REPO }} --global=true
+                jf poetry-config --repo-resolve=${{ env.PYTHON_REMOTE_REPO }} --global=true
 
             - name: Checkout
               uses: actions/checkout@v4
