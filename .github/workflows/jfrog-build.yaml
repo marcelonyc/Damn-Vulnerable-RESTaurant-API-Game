@@ -11,7 +11,7 @@ jobs:
         name: dvr-game-build
         runs-on: sefl-hosted-linux
         env:
-          OIDC_PROVIDER_NAME: 'dvr-github'
+          OIDC_PROVIDER_NAME: ${{ vars.OIDC_PROVIDER_NAME }}
           DOCKER_REPO: 'dvr-game-docker-local'
           DOCKER_REMOTE: 'dvr-game-docker-remote'
           PYTHON_REMOTE_REPO: 'dvr-game-python-remote'
