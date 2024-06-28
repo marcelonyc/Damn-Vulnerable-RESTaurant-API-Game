@@ -9,7 +9,7 @@ permissions:
 jobs:
     build-publish-python:
         name: dvr-game-build
-        runs-on: sefl-hosted-linux
+        runs-on: self-hosted-linux
         env:
           OIDC_PROVIDER_NAME: ${{ vars.OIDC_PROVIDER_NAME }}
           DOCKER_REPO: 'dvr-game-docker-local'
