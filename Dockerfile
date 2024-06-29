@@ -9,7 +9,7 @@ ARG PYTHON_REMOTE_REPO
 
 # GET jfrogROG CLI
 RUN curl -fL https://getcli.jfrog.io | sh &&  chmod 755 jfrog &&  cp jfrog /usr/local/bin/
-RUN jfrog config add TEMP --artifactory-url=https://${JF_URL} --user=${JF_USER} --password=${JF_PASSWORD} --interactive=false
+RUN jfrog config add --artifactory-url=https://${JF_URL} --access-token=${JF_PASSWORD} --interactive=false TEMP
 RUN jfrog poetry-config --repo-resolve=${PYTHON_REMOTE_REPO} --global=true
 
 RUN jfrog pip install poetry==1.4.2
