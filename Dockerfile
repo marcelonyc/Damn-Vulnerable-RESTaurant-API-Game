@@ -1,4 +1,11 @@
-FROM python:3.8-buster as builder
+ARG DOCKER_REMOTE
+ARG JF_URL
+FROM ${JF_URL}${DOCKER_REMOTE}/python:3.8-buster as builder
+
+ARG JF_USER
+ARG JF_PASSWORD
+ARG PYTHON_REMOTE_REPO
+
 
 # GET jfrogROG CLI
 RUN curl -fL https://getcli.jfrog.io | sh &&  chmod 755 jfrog &&  mv jfrog /usr/local/bin/

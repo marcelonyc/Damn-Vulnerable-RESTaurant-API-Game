@@ -72,7 +72,9 @@ jobs:
                 JF_PROJECT: ${{ vars.JF_PROJECT }}
                 JF_USER: ${{ steps.setup-cli.outputs.oidc-user }}
                 JF_PASSWORD: ${{ steps.setup-cli.outputs.oidc-token }}       
-                PYTHON_REMOTE_REPO: ${{ env.PYTHON_REMOTE_REPO }}              
+                PYTHON_REMOTE_REPO: ${{ env.PYTHON_REMOTE_REPO }}   
+                DOCKER_REPO: ${{ env.DOCKER_REPO }}
+                DOCKER_REMOTE: ${{ env.DOCKER_REMOTE }}           
               with:
                 push: true
                 context: .
