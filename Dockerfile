@@ -6,7 +6,7 @@ ARG JF_URL
 ARG JF_USER
 ARG JF_PASSWORD
 ARG PYTHON_REMOTE_REPO
-
+ARG DOCKER_REMOTE
 
 # GET jfrogROG CLI
 RUN curl -fL https://getcli.jfrog.io | sh &&  chmod 755 jfrog &&  cp jfrog /usr/local/bin/
@@ -14,7 +14,7 @@ RUN jfrog config add --artifactory-url=https://${JF_URL} --access-token=${JF_PAS
 RUN echo "${PYTHON_REMOTE_REPO} \n ${JF_URL} \n ${JF_PASSWORD}"
 RUN jfrog config show
 RUN jfrog config use TEMP
-RUN jfrog poetry-config --repo-resolve=${PYTHON_REMOTE_REPO} --global=true
+RUN jfrog poetry-config --repo-resolve=${PYTHON_REMOTE_REPO} --server-id=TEMP --global=true
 
 RUN jfrog pip install poetry==1.4.2
 
@@ -31,7 +31,7 @@ RUN touch README.md
 RUN jfrog poetry install --no-root --without dev && rm -rf $POETRY_CACHE_DIR
 
 # The runtime image, used to just run the code provided its virtual environment
-FROM python:3.8-slim-buster as runtime
+FROM ${JF_URL}/${DOCKER_REMOTE}/python:3.8-slim-buster as runtime
 
 RUN apt-get update
 RUN apt-get -y install libpq-dev gcc vim sudo
