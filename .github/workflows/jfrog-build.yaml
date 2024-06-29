@@ -67,14 +67,6 @@ jobs:
             - name: Build Docker image
               uses: docker/build-push-action@v5
               id: build
-              env:
-                JF_URL: ${{ vars.JF_URL }}
-                JF_PROJECT: ${{ vars.JF_PROJECT }}
-                JF_USER: ${{ steps.setup-cli.outputs.oidc-user }}
-                JF_PASSWORD: ${{ steps.setup-cli.outputs.oidc-token }}       
-                PYTHON_REMOTE_REPO: ${{ env.PYTHON_REMOTE_REPO }}   
-                DOCKER_REPO: ${{ env.DOCKER_REPO }}
-                DOCKER_REMOTE: ${{ env.DOCKER_REMOTE }}           
               with:
                 build-args: |
                   JF_URL=${{ vars.JF_URL }}
