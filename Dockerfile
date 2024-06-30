@@ -10,7 +10,7 @@ ARG DOCKER_REMOTE
 
 # GET/CONFIGURE jfrog CLI
 RUN curl -fL https://install-cli.jfrog.io | sh
-RUN jf config add --artifactory-url=https://${JF_URL} --access-token=${JF_PASSWORD} --interactive=false TEMP
+RUN jf config add --artifactory-url=https://${JF_URL}/artifactory --access-token=${JF_PASSWORD} --interactive=false TEMP
 RUN jf poetry-config --repo-resolve=${PYTHON_REMOTE_REPO} --server-id-resolve=TEMP --global=True
 RUN jf pipc --repo-resolve=${PYTHON_REMOTE_REPO} --server-id-resolve=TEMP --global=True
 RUN jf pip install poetry==1.4.2
