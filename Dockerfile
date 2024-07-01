@@ -7,6 +7,7 @@ ARG JF_USER
 ARG JF_PASSWORD
 ARG PYTHON_REMOTE_REPO
 ARG DOCKER_REMOTE
+ARG DEBIAN_REMOTE_REPO
 
 # GET/CONFIGURE jfrog CLI
 RUN curl -fL https://install-cli.jfrog.io | sh
@@ -34,7 +35,10 @@ ARG JF_URL
 ARG JF_USER
 ARG JF_PASSWORD
 ARG PYTHON_REMOTE_REPO
-ARG DOCKER_REMOTE
+ARG DEBIAN_REMOTE_REPO
+
+RUN echo 'deb https://${JF_USER}:${JF_PASSWORD}@soleng.jfrog.io/artifactory/dvr-game-debian-remote buster main' > /tmp/sources.list 
+RUN cat /tmp/sources.list /etc/apt/sources.list > /etc/apt/sources.list
 
 RUN apt-get update
 RUN apt-get -y install libpq-dev gcc vim sudo

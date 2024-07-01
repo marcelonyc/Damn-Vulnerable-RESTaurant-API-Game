@@ -12,9 +12,10 @@ jobs:
         runs-on: self-hosted-linux
         env:
           OIDC_PROVIDER_NAME: ${{ vars.OIDC_PROVIDER_NAME }}
-          DOCKER_REPO: 'dvr-game-docker-local'
-          DOCKER_REMOTE: 'dvr-game-docker-remote'
-          PYTHON_REMOTE_REPO: 'dvr-game-python-remote'
+          DOCKER_REPO: ${{ vars.DOCKER_REPO }}
+          DOCKER_REMOTE: ${{ vars.DOCKER_REMOTE }}
+          PYTHON_REMOTE_REPO: ${{ vars.PYTHON_REMOTE_REPO }}
+          DEBIAN_REMOTE_REPO: ${{ vars.DEBIAN_REMOTE_REPO }}
           IMAGE_NAME: 'dvr-game-python'
           JF_URL: https://${{ vars.JF_URL }}/
           # JFROG_CLI_BUILD_PROJECT JF_PROJECT: ${{ vars.JF_PROJECT }}
@@ -76,6 +77,7 @@ jobs:
                   PYTHON_REMOTE_REPO=${{ env.PYTHON_REMOTE_REPO }}
                   DOCKER_REPO=${{ env.DOCKER_REPO }}
                   DOCKER_REMOTE=${{ env.DOCKER_REMOTE }}
+                  DEBIAN_REMOTE_REPO: ${{ vars.DEBIAN_REMOTE_REPO }}
                 push: true
                 context: .
                 platforms: linux/amd64, linux/arm64       
@@ -94,5 +96,10 @@ jobs:
                 jf rt build-add-dependencies --from-rt ${{ env.DOCKER_REMOTE }}/
                 jf rt build-add-dependencies --from-rt ${{ env.DOCKER_REPO }}/
                 jf rt build-add-dependencies --from-rt ${{ env.PYTHON_REMOTE_REPO }}/
+                jf rt build-add-dependencies --from-rt ${{ env.DEBIAN_REMOTE_REPO }}/
                 jf rt build-add-git
                 jf rt build-publish
+
+            - name: Build Scan
+              run: |
+                jf rt build-scan
