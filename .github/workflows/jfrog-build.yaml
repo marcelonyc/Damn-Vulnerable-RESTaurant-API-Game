@@ -93,10 +93,11 @@ jobs:
             - name: Publish build info
               run: |
                 jf rt build-add-dependencies .           
-                jf rt build-add-dependencies --from-rt ${{ env.DOCKER_REMOTE }}/
-                jf rt build-add-dependencies --from-rt ${{ env.DOCKER_REPO }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}
-                jf rt build-add-dependencies --from-rt ${{ env.PYTHON_REMOTE_REPO }}/
-                jf rt build-add-dependencies --from-rt ${{ env.DEBIAN_REMOTE_REPO }}/
+                echo "DOCKER_REMOTE: ${{ env.DOCKER_REMOTE }}"
+                jf rt build-add-dependencies --from-rt ${{ env.DOCKER_REMOTE }}-cache/
+                jf rt build-add-dependencies --from-rt ${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }} 
+                jf rt build-add-dependencies --from-rt ${{ env.PYTHON_REMOTE_REPO }}-cache/
+                jf rt build-add-dependencies --from-rt ${{ env.DEBIAN_REMOTE_REPO }}-cache/
                 jf rt build-add-git
                 jf rt build-publish
 
