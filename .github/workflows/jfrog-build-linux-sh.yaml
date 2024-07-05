@@ -61,6 +61,7 @@ jobs:
     build-publish-python:
         name: dvr-game-build
         runs-on: self-hosted-linux
+        needs: [ python-curation-check ]
         steps:
             # Use the specific setup-cli branch
             - name: Setup JFrog CLI

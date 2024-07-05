@@ -15,7 +15,7 @@ Change the `runs-on` setting to a runner of your choice. This workflow is set to
     Remote repos
     - PYTHON_REMOTE_REPO: Remote Maven repository
     - DOCKER_REMOTE: Remote Docker repository
-    - DEBIAN_REMOTE_REPO: Remote Repo for debian artifacts (https://packages.debian.org) NOT Ubuntu!
+    - DEBIAN_REMOTE_REPO: Remote Repo for debian artifacts (http://deb.debian.org/debian) NOT Ubuntu!
 
 3. Define the OIDC integration
     For an example of this integration, check this repo: https://github.com/marcelonyc/ga-jfrog-primer
