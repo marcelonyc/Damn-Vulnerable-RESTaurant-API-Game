@@ -15,7 +15,6 @@ env:
   DEBIAN_REMOTE_REPO: ${{ vars.DEBIAN_REMOTE_REPO }}
   IMAGE_NAME: '${{ vars.IMAGE_NAME }}:${{ github.run_number }}'
   JF_URL: https://${{ vars.JF_URL }}/
-  # JFROG_CLI_BUILD_PROJECT JF_PROJECT: ${{ vars.JF_PROJECT }}
   JF_BUILD_NAME: 'dvr-game-build'
   JF_BUILD_NUMBER: ${{ github.run_number }}  
 
