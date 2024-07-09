@@ -12,21 +12,13 @@ ARG DEBIAN_REMOTE_REPO
 # GET/CONFIGURE jfrog CLI
 RUN curl -fL https://install-cli.jfrog.io | sh
 RUN jf config add --artifactory-url=https://${JF_URL}/artifactory --access-token=${JF_PASSWORD} --interactive=false TEMP
-RUN jf poetry-config --repo-resolve=${PYTHON_REMOTE_REPO} --server-id-resolve=TEMP --global=True
 RUN jf pipc --repo-resolve=${PYTHON_REMOTE_REPO} --server-id-resolve=TEMP --global=True
-RUN jf pip install poetry==1.4.2
-
-ENV POETRY_NO_INTERACTION=1 \
-    POETRY_VIRTUALENVS_IN_PROJECT=1 \
-    POETRY_VIRTUALENVS_CREATE=1 \
-    POETRY_CACHE_DIR=/tmp/poetry_cache
 
 WORKDIR /app
 
-COPY pyproject.toml poetry.lock ./
 RUN touch README.md
 
-RUN jf poetry install --no-root --without dev && rm -rf $POETRY_CACHE_DIR
+RUN jf pip install
 
 # The runtime image, used to just run the code provided its virtual environment
 FROM ${JF_URL}/${DOCKER_REMOTE}/python:3.8-slim-buster as runtime
