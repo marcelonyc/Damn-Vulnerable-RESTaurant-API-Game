@@ -37,10 +37,6 @@ RUN cat /tmp/new.list > /etc/apt/sources.list
 RUN apt-get update
 RUN apt-get -y install libpq-dev gcc vim sudo
 
-ENV VIRTUAL_ENV=/app/.venv \
-    PATH="/app/.venv/bin:$PATH"
-
-COPY --from=builder ${VIRTUAL_ENV} ${VIRTUAL_ENV}
 
 COPY app ./app
 WORKDIR /app
