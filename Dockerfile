@@ -15,7 +15,7 @@ RUN jf config add --artifactory-url=https://${JF_URL}/artifactory --access-token
 RUN jf pipc --repo-resolve=${PYTHON_REMOTE_REPO} --server-id-resolve=TEMP --global=True
 
 WORKDIR /app
-
+COPY requirements.txt /app/requirements.txt
 RUN touch README.md
 
 RUN jf pip install -r requirements.txt 
