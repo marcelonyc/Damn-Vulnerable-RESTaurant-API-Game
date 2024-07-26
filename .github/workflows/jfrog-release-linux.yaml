@@ -1,0 +1,71 @@
+name: dvr-game-release-bundle
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - 'release-*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+permissions:
+  actions: read # for detecting the Github Actions environment.
+  id-token: write # for creating OIDC tokens for signing.
+  packages: write # for uploading attestations.
+  contents: read
+
+env:
+  OIDC_PROVIDER_NAME: ${{ vars.OIDC_PROVIDER_NAME }}
+  DOCKER_REPO: ${{ vars.DOCKER_REPO }}
+  DOCKER_REMOTE: ${{ vars.DOCKER_REMOTE }}
+  PYTHON_REMOTE_REPO: ${{ vars.PYTHON_REMOTE_REPO }}
+  DEBIAN_REMOTE_REPO: ${{ vars.DEBIAN_REMOTE_REPO }}
+  IMAGE_NAME: '${{ vars.IMAGE_NAME }}:${{ github.run_number }}'
+  JF_URL: https://${{ vars.JF_URL }}/
+  JF_BUILD_NAME: 'dvr-game-build'
+  JF_BUILD_NUMBER: ${{ github.run_number }}  
+
+jobs:
+
+    promote-release-bundle:
+        # This job will fail if Curation policies are violated
+        name: rlm-promotion
+        runs-on: dvr-self-hosted
+        steps:
+            # Use the specific setup-cli branch
+            - name: Setup JFrog CLI
+              uses: jfrog/setup-jfrog-cli@v4
+              id: setup-cli
+              env:
+                JF_URL: https://${{ vars.JF_URL }}/
+                JF_PROJECT: ${{ vars.JF_PROJECT }}
+              with:
+                  oidc-provider-name: ${{ env.OIDC_PROVIDER_NAME }}
+              
+            - name: Parse release name
+              # Format expected release-<target: dev|qa|prod>-v<version: x.x.x>
+              id: parse-release-name
+              run: |
+                echo "This is ref: ${{ github.ref }}"
+
+            # - name: "Create Release Bundle"
+            #   run: |
+            #     curl --location https://${{ vars.JF_URL }}/lifecycle/api/v2/release_bundle?project=${{ vars.JF_PROJECT }} \
+            #     -X POST \
+            #     --header "X-JFrog-Signing-Key-Name: ${{ vars.SIGNATURE_KEY_NAME }}" \
+            #     --header "Authorization: Bearer ${{ steps.setup-cli.outputs.oidc-token }}" \
+            #     --header "Content-Type: application/json" \
+            #     --data '{
+            #         "release_bundle_name": "DVR-Release-Bundle",
+            #         "release_bundle_version": "${{ github.run_number }}",
+            #         "skip_docker_manifest_resolution": false,
+            #         "source_type": "builds",
+            #         "source": {
+            #             "builds": [
+            #                 {
+            #                     "build_repository": "${{ vars.JF_PROJECT }}-build-info",
+            #                     "build_name": "${{env.JF_BUILD_NAME}}",
+            #                     "build_number": "${{ env.JF_BUILD_NUMBER }}",
+            #                     "include_dependencies": false
+            #                 }
+            #             ]
+            #         }
+            #     }'
+
