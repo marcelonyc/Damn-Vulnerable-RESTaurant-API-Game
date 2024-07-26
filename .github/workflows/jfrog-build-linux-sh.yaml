@@ -23,7 +23,7 @@ jobs:
     python-curation-check:
         # This job will fail if Curation policies are violated
         name: curation-check
-        runs-on: self-hosted-mac
+        runs-on: dvr-self-hosted
         steps:
             # Use the specific setup-cli branch
             - name: Setup JFrog CLI
@@ -56,7 +56,7 @@ jobs:
     
     build-publish-python:
         name: dvr-game-build
-        runs-on: self-hosted-mac
+        runs-on: dvr-self-hosted
         needs: [ python-curation-check ]
         steps:
             # Use the specific setup-cli branch
@@ -121,7 +121,7 @@ jobs:
     
     deply-to-dev-env:
         name: dvr-game-release-bundle
-        runs-on: self-hosted-mac
+        runs-on: dvr-self-hosted
         needs: [ build-publish-python ]
         steps:
         - name: "Create Release Bundle"
