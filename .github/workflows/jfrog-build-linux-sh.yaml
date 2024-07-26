@@ -136,8 +136,8 @@ jobs:
 
             - name: "Create Release Bundle"
               run: |
-                jf rt curl --url https://${{ vars.JF_URL }}/lifecycle/api/v2/release_bundle \
-                --method POST \
+                curl --location https://${{ vars.JF_URL }}/lifecycle/api/v2/release_bundle \
+                -X POST \
                 --header "X-JFrog-Signing-Key-Name: ${{ vars.SIGNATURE_KEY_NAME }}" \
                 --header "Authorization: Bearer ${{ steps.setup-cli.outputs.oidc-token }}" \
                 --header "Content-Type: application/json" \
