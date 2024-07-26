@@ -30,14 +30,14 @@ jobs:
         runs-on: dvr-self-hosted
         steps:
             # Use the specific setup-cli branch
-            - name: Setup JFrog CLI
-              uses: jfrog/setup-jfrog-cli@v4
-              id: setup-cli
-              env:
-                JF_URL: https://${{ vars.JF_URL }}/
-                JF_PROJECT: ${{ vars.JF_PROJECT }}
-              with:
-                  oidc-provider-name: ${{ env.OIDC_PROVIDER_NAME }}
+            # - name: Setup JFrog CLI
+            #   uses: jfrog/setup-jfrog-cli@v4
+            #   id: setup-cli
+            #   env:
+            #     JF_URL: https://${{ vars.JF_URL }}/
+            #     JF_PROJECT: ${{ vars.JF_PROJECT }}
+            #   with:
+            #       oidc-provider-name: ${{ env.OIDC_PROVIDER_NAME }}
               
             - name: Parse release name
               # Format expected release-<target: dev|qa|prod>-v<version: x.x.x>
