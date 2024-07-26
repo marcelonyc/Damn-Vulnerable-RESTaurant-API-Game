@@ -39,14 +39,19 @@ jobs:
             #   with:
             #       oidc-provider-name: ${{ env.OIDC_PROVIDER_NAME }}
               
+            - name: Parse github ref
+              # Format expected release-<target: dev|qa|prod>-v<version: x.x.x>
+              id: parse-github-ref
+              run: |
+                echo "RELEASE_NAME=$(echo ${{ github.ref }}|cut -f 3 -d '/')" >> $GITHUB_ENV
+                
             - name: Parse release name
               # Format expected release-<target: dev|qa|prod>-v<version: x.x.x>
               id: parse-release-name
               run: |
-                echo "RELEASE_NAME=$(echo ${{ github.ref }}|cut -f 3 -d '/')" >> $GITHUB_ENV
                 echo "TARGET_ENVIRONMENT=$(echo ${{ env.RELEASE_NAME }}|cut -f 2 -d '/'| tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
                 echo "RELEASE_VERSION=$(echo ${{ env.RELEASE_NAME }}|cut -f 3 -d '-')" >> $GITHUB_ENV
-
+                            
             - name: What do I got
               run: |
                 echo "TARGET_ENVIRONMENT=${TARGET_ENVIRONMENT} RELEASE_VERSION=${RELEASE_VERSION}"
