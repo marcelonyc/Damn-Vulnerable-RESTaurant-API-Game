@@ -49,7 +49,7 @@ jobs:
               # Format expected release-<target: dev|qa|prod>-v<version: x.x.x>
               id: parse-release-name
               run: |
-                echo "TARGET_ENVIRONMENT=$(echo ${{ env.RELEASE_NAME }}|cut -f 2 -d '-'| tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+                echo "TARGET_ENVIRONMENT=$(echo ${{ env.RELEASE_NAME }}|cut -f 2 -d '-'| tr '[:lower:]' '[:upper:]')" >> $GITHUB_ENV
                 echo "RELEASE_VERSION=$(echo ${{ env.RELEASE_NAME }}|cut -f 3 -d '-')" >> $GITHUB_ENV
                             
             - name: What do I got
