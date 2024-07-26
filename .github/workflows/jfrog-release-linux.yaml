@@ -43,8 +43,13 @@ jobs:
               # Format expected release-<target: dev|qa|prod>-v<version: x.x.x>
               id: parse-release-name
               run: |
-                echo "::set-output name=TARGET_ENVIRONMENT::$(echo ${{ github.ref }}|cut -f 2 -d '/'| tr '[:upper:]' '[:lower:]')"
-                echo "::set-output name=RELEASE_VERSION::$(echo ${{ github.ref }}|cut -f 3 -d '-')"
+                echo "TARGET_ENVIRONMENT=$(echo ${{ github.ref }}|cut -f 2 -d '/'| tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+                echo "RELEASE_VERSION=$(echo ${{ github.ref }}|cut -f 3 -d '-')" >> $GITHUB_ENV
+
+            - name: What do I got
+              run: |
+                echo "TARGET_ENVIRONMENT=${TARGET_ENVIRONMENT} RELEASE_VERSION=${RELEASE_VERSION}"
+                echo "It is env: ${{ env.TARGET_ENVIRONMENT }}"
 
             # - name: "Create Release Bundle"
             #   run: |
