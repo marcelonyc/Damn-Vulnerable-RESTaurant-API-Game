@@ -117,7 +117,7 @@ jobs:
 
             - name: Build Scan
               run: |
-                jf rt build-scan
+                jf build-scan
     
     deply-to-dev-env:
         name: dvr-game-release-bundle
