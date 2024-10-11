@@ -39,6 +39,6 @@ WORKDIR /app
 RUN echo 'ALL ALL=(ALL) NOPASSWD: /usr/bin/find' | sudo tee /etc/sudoers.d/find_nopasswd > /dev/null
 
 # for security, we're creating a dedicated non-root user
-RUN adduser app
+RUN adduser app -D
 RUN chown app .
 USER app
