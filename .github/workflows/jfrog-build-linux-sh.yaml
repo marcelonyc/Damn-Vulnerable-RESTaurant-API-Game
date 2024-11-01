@@ -60,7 +60,7 @@ jobs:
     
     build-publish-python:
         name: dvr-game-build
-        runs-on: ${{ vars.RUN_ON }}
+        runs-on: ${{ vars.RUNS_ON }}
         needs: [ python-curation-check ]
         steps:
             # Use the specific setup-cli branch
