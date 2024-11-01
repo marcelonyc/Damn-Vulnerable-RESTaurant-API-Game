@@ -23,7 +23,7 @@ jobs:
     python-curation-check:
         # This job will fail if Curation policies are violated
         name: curation-check
-        runs-on: dvr-jf-mac
+        runs-on: ${{ vars.RUNS_ON }}
         steps:
             # Use the specific setup-cli branch
             - name: Setup JFrog CLI
@@ -60,7 +60,7 @@ jobs:
     
     build-publish-python:
         name: dvr-game-build
-        runs-on: dvr-jf-mac
+        runs-on: ${{ vars.RUN_ON }}
         needs: [ python-curation-check ]
         steps:
             # Use the specific setup-cli branch
