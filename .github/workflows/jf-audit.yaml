@@ -25,25 +25,13 @@ jobs:
               id: setup-cli
               env:
                 JF_URL: https://${{ vars.JF_URL }}/
-                JF_PROJECT: ${{ vars.JF_PROJECT }}
               with:
                   oidc-provider-name: ${{ env.OIDC_PROVIDER_NAME }}
  
-            # - name: configure jfrog environment
-            #   run: |
-            #     # Use a curated repository for python dependencies resolution
-            #     # GLOBAL will force the docker build to use the jfrog repo
-            #     jf pipc --repo-resolve=${{ env.PYTHON_REMOTE_REPO }} --global=true
-
             - name: Checkout
               uses: actions/checkout@v4
-    
-            # - name: Set up Python 3.10.14
-            #   uses: actions/setup-python@v2
-            #   with:
-            #     python-version: 3.10.14
- 
-            - name: Install python modules
+
+            - name: JFrog Audit
               run: |
                 jf audit --pip --requirements-file requirements.txt
 
