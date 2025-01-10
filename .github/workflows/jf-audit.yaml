@@ -1,0 +1,50 @@
+name: dvr-game-audit
+on: workflow_dispatch
+    
+permissions:
+  actions: read # for detecting the Github Actions environment.
+  id-token: write # for creating OIDC tokens for signing.
+  packages: write # for uploading attestations.
+  contents: read
+
+env:
+  OIDC_PROVIDER_NAME: ${{ vars.OIDC_PROVIDER_NAME }}
+  PYTHON_REMOTE_REPO: ${{ vars.PYTHON_REMOTE_REPO }}
+  JF_URL: https://${{ vars.JF_URL }}/
+  
+jobs:
+
+    python-audit-check:
+        # This job will fail if Curation policies are violated
+        name: audit-check
+        runs-on: dvr-self-hosted
+        steps:
+            # Use the specific setup-cli branch
+            - name: Setup JFrog CLI
+              uses: jfrog/setup-jfrog-cli@v4
+              id: setup-cli
+              env:
+                JF_URL: https://${{ vars.JF_URL }}/
+                JF_PROJECT: ${{ vars.JF_PROJECT }}
+              with:
+                  oidc-provider-name: ${{ env.OIDC_PROVIDER_NAME }}
+ 
+            # - name: configure jfrog environment
+            #   run: |
+            #     # Use a curated repository for python dependencies resolution
+            #     # GLOBAL will force the docker build to use the jfrog repo
+            #     jf pipc --repo-resolve=${{ env.PYTHON_REMOTE_REPO }} --global=true
+
+            - name: Checkout
+              uses: actions/checkout@v4
+    
+            # - name: Set up Python 3.10.14
+            #   uses: actions/setup-python@v2
+            #   with:
+            #     python-version: 3.10.14
+ 
+            - name: Install python modules
+              run: |
+                jf audit
+
+   
