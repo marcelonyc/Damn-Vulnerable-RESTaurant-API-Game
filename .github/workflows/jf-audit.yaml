@@ -45,6 +45,6 @@ jobs:
  
             - name: Install python modules
               run: |
-                jf audit
+                jf audit --pip --requirements-file requirements.txt
 
    
