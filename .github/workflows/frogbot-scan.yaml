@@ -1,0 +1,17 @@
+on:
+  schedule:
+  - cron: "0 2 * * 1-5"
+
+jobs:
+  frogbot:
+    - name: Frogbot by JFrog
+      # You may pin to the exact commit or the version.
+      # uses: jfrog/frogbot@b69fd3530002e7404c762d126f7584c19eb4c187
+      uses: jfrog/frogbot@v2.24.0
+      with:
+        # Frogbot version
+        version: # optional, default is latest
+        # Provider Name's value that was set in OpenId Connect integration in the JFrog platform.
+        oidc-provider-name: dvr-game-github
+        # By default, this is the URL of the GitHub repository owner, such as the organization that owns the repository.
+            
