@@ -21,7 +21,7 @@ jobs:
         env:
           # [Mandatory]
           # JFrog platform URL
-          JF_URL: ${{ secrets.JF_URL }}
+          JF_URL: ${{ vars.JF_URL }}
         with:
           oidc-provider-name: dvr-game-github
                 
