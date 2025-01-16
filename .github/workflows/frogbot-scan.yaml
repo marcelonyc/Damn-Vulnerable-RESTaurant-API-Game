@@ -1,17 +1,15 @@
 on:
-  schedule:
-  - cron: "0 2 * * 1-5"
+  workflow_dispatch:
 
 jobs:
   frogbot:
-    - name: Frogbot by JFrog
-      # You may pin to the exact commit or the version.
-      # uses: jfrog/frogbot@b69fd3530002e7404c762d126f7584c19eb4c187
-      uses: jfrog/frogbot@v2.24.0
-      with:
-        # Frogbot version
-        version: # optional, default is latest
-        # Provider Name's value that was set in OpenId Connect integration in the JFrog platform.
-        oidc-provider-name: dvr-game-github
-        # By default, this is the URL of the GitHub repository owner, such as the organization that owns the repository.
-            
+      runs-on: ubuntu-latest
+    # A pull request needs to be approved before Frogbot scans it. Any GitHub user who is associated with the
+    # "frogbot" GitHub environment can approve the pull request to be scanned.
+      environment: frogbot
+      steps:
+      - name: Frogbot by JFrog
+        uses: jfrog/frogbot@v2.24.0
+        with:
+          oidc-provider-name: dvr-game-github
+                
