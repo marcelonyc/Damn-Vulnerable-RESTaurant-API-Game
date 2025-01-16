@@ -15,8 +15,7 @@ jobs:
         # The repository scanning will be triggered periodically on the following branches.
         branch: ["no-poetry"]
     steps:
-      - name: Frogbot by JFrog
-        uses: jfrog/frogbot@v2.24.0
+      - uses: jfrog/frogbot@v2.24.0
         env:
           # [Mandatory]
           # JFrog platform URL
