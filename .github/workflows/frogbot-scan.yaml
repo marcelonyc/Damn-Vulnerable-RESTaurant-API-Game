@@ -1,17 +1,27 @@
-
-name: Frogbot Scan
+name: "Frogbot Scan"
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+  pull-requests: write
+  security-events: write
+  # [Mandatory If using OIDC authentication protocol instead of JF_ACCESS_TOKEN]
+  id-token: write
 jobs:
   frogbot:
-      runs-on: ubuntu-latest
-    # A pull request needs to be approved before Frogbot scans it. Any GitHub user who is associated with the
-    # "frogbot" GitHub environment can approve the pull request to be scanned.
-      environment: frogbot
-      steps:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # The repository scanning will be triggered periodically on the following branches.
+        branch: ["no-poetry"]
+    steps:
       - name: Frogbot by JFrog
         uses: jfrog/frogbot@v2.24.0
+        env:
+          # [Mandatory]
+          # JFrog platform URL
+          JF_URL: ${{ secrets.JF_URL }}
         with:
           oidc-provider-name: dvr-game-github
                 
