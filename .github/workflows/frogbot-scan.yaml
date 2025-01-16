@@ -19,6 +19,9 @@ jobs:
         env:
           # [Mandatory]
           # JFrog platform URL
+          JF_GIT_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JF_GIT_BASE_BRANCH: ${{ matrix.branch }}
           JF_URL: https://${{ vars.JF_URL }}
         with:
           oidc-provider-name: dvr-game-github
+                
