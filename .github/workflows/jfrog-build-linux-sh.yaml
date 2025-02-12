@@ -109,9 +109,9 @@ jobs:
 
             - name: Publish build info
               run: |
-                jf rt build-add-dependencies .           
+                # jf rt build-add-dependencies .           
                 echo "DOCKER_REMOTE: ${{ env.DOCKER_REMOTE }}"
-                jf rt build-add-dependencies --from-rt ${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }} 
+                jf rt build-add-dependencies --from-rt "${{ env.DOCKER_REPO }}/${{ vars.IMAGE_NAME }}/${{ github.run_number }}/"
                 jf rt build-add-git
                 jf rt build-publish
 
