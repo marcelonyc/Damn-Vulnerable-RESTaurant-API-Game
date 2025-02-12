@@ -117,9 +117,9 @@ jobs:
                 jf rt build-add-git
                 jf rt build-publish
 
-            - name: Build Scan
-              run: |
-                jf build-scan
+            # - name: Build Scan
+            #   run: |
+            #     jf build-scan
     
     deply-to-dev-env:
         name: dvr-game-release-bundle
