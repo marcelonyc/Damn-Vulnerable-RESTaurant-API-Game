@@ -119,42 +119,42 @@ jobs:
             #   run: |
             #     jf build-scan
     
-    deply-to-dev-env:
-        name: dvr-game-release-bundle
-        runs-on: dvr-self-hosted
-        needs: [ build-publish-python ]
-        steps:
-            # Use the specific setup-cli branch
-            - name: Setup JFrog CLI
-              uses: jfrog/setup-jfrog-cli@v4
-              id: setup-cli
-              env:
-                JF_URL: https://${{ vars.JF_URL }}/
-                JF_PROJECT: ${{ vars.JF_PROJECT }}
-              with:
-                  oidc-provider-name: ${{ env.OIDC_PROVIDER_NAME }}
+    # deply-to-dev-env:
+    #     name: dvr-game-release-bundle
+    #     runs-on: dvr-self-hosted
+    #     needs: [ build-publish-python ]
+    #     steps:
+    #         # Use the specific setup-cli branch
+    #         - name: Setup JFrog CLI
+    #           uses: jfrog/setup-jfrog-cli@v4
+    #           id: setup-cli
+    #           env:
+    #             JF_URL: https://${{ vars.JF_URL }}/
+    #             JF_PROJECT: ${{ vars.JF_PROJECT }}
+    #           with:
+    #               oidc-provider-name: ${{ env.OIDC_PROVIDER_NAME }}
 
-            - name: "Create Release Bundle"
-              run: |
-                curl --location https://${{ vars.JF_URL }}/lifecycle/api/v2/release_bundle?project=${{ vars.JF_PROJECT }} \
-                -X POST \
-                --header "X-JFrog-Signing-Key-Name: ${{ vars.SIGNATURE_KEY_NAME }}" \
-                --header "Authorization: Bearer ${{ steps.setup-cli.outputs.oidc-token }}" \
-                --header "Content-Type: application/json" \
-                --data '{
-                    "release_bundle_name": "DVR-Release-Bundle",
-                    "release_bundle_version": "${{ github.run_number }}",
-                    "skip_docker_manifest_resolution": false,
-                    "source_type": "builds",
-                    "source": {
-                        "builds": [
-                            {
-                                "build_repository": "${{ vars.JF_PROJECT }}-build-info",
-                                "build_name": "${{env.JF_BUILD_NAME}}",
-                                "build_number": "${{ env.JF_BUILD_NUMBER }}",
-                                "include_dependencies": false
-                            }
-                        ]
-                    }
-                }'
+            # - name: "Create Release Bundle"
+            #   run: |
+            #     curl --location https://${{ vars.JF_URL }}/lifecycle/api/v2/release_bundle?project=${{ vars.JF_PROJECT }} \
+            #     -X POST \
+            #     --header "X-JFrog-Signing-Key-Name: ${{ vars.SIGNATURE_KEY_NAME }}" \
+            #     --header "Authorization: Bearer ${{ steps.setup-cli.outputs.oidc-token }}" \
+            #     --header "Content-Type: application/json" \
+            #     --data '{
+            #         "release_bundle_name": "DVR-Release-Bundle",
+            #         "release_bundle_version": "${{ github.run_number }}",
+            #         "skip_docker_manifest_resolution": false,
+            #         "source_type": "builds",
+            #         "source": {
+            #             "builds": [
+            #                 {
+            #                     "build_repository": "${{ vars.JF_PROJECT }}-build-info",
+            #                     "build_name": "${{env.JF_BUILD_NAME}}",
+            #                     "build_number": "${{ env.JF_BUILD_NUMBER }}",
+            #                     "include_dependencies": false
+            #                 }
+            #             ]
+            #         }
+            #     }'
 
