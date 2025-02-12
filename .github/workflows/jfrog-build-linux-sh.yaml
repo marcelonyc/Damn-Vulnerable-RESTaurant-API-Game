@@ -111,7 +111,7 @@ jobs:
               run: |
                 # jf rt build-add-dependencies .           
                 echo "DOCKER_REMOTE: ${{ env.DOCKER_REMOTE }}"
-                jf rt build-docker-create ${{ env.DOCKER_REPO }} --image-file ${{ env.IMAGE_NAME }}/${{ github.run_number }}
+                jf rt build-docker-create ${{ env.DOCKER_REPO }} --image-file ${{ vars.IMAGE_NAME }}/${{ github.run_number }}
                 jf rt build-add-git
                 jf rt build-publish
 
