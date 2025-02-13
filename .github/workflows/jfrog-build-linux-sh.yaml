@@ -98,8 +98,7 @@ jobs:
                   DEBIAN_REMOTE_REPO: ${{ vars.DEBIAN_REMOTE_REPO }}
                 push: false
                 context: .
-                outputs:
-                    - type: docker
+                outputs: type=docker
                 platforms: linux/amd64, linux/arm64       
                 tags: ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}
                 provenance: false
