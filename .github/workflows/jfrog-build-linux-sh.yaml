@@ -100,12 +100,12 @@ jobs:
                 context: .
                 outputs: type=docker
                 # platforms: linux/amd64, linux/arm64       
-                tags: ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}:${{ env.IMAGE_NAME }}
+                # tags: ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}
                 provenance: false
 
             - name: docker push
               run: |  
-                 # jf docker push ${{ steps.setup-cli.outputs.imageid }}
+                 jf docker tag ${{ steps.build.outputs.imageid }} ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}:${{ env.IMAGE_NAME }}
                  jf docker push ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}:${{ env.IMAGE_NAME }}
                  # jf docker scan ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}                   
 
