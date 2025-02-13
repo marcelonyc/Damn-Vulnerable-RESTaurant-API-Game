@@ -104,7 +104,8 @@ jobs:
 
             - name: docker push
               run: |  
-                 jf docker push ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}
+                 jf docker push ${{ steps.setup-cli.outputs.imageid }}
+                 # jf docker push ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}
                  # jf docker scan ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}                   
 
 
