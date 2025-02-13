@@ -16,7 +16,8 @@ env:
   IMAGE_NAME: '${{ vars.IMAGE_NAME }}:${{ github.run_number }}'
   JF_URL: https://${{ vars.JF_URL }}/
   JF_BUILD_NAME: 'dvr-game-build'
-  JF_BUILD_NUMBER: ${{ github.run_number }}  
+  JF_BUILD_NUMBER: ${{ github.run_number }}
+  JF_PROJECT: ${{ vars.JF_PROJECT }}
 
 jobs:
 
@@ -95,16 +96,16 @@ jobs:
                   DOCKER_REPO=${{ env.DOCKER_REPO }}
                   DOCKER_REMOTE=${{ env.DOCKER_REMOTE }}
                   DEBIAN_REMOTE_REPO: ${{ vars.DEBIAN_REMOTE_REPO }}
-                push: true
+                push: false
                 context: .
                 platforms: linux/amd64, linux/arm64       
                 tags: ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}
                 provenance: false
 
-            # - name: docker scan
-            #   run: |  
-            #      jf docker pull ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}
-            #      jf docker scan ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}                   
+            - name: docker push
+              run: |  
+                 jf docker push ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}
+                 # jf docker scan ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}                   
 
 
             - name: Publish build info
