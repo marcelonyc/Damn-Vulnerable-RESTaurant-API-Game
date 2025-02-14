@@ -1,0 +1,40 @@
+name: cli-test-action
+on: workflow_dispatch
+    
+permissions:
+  actions: read # for detecting the Github Actions environment.
+  id-token: write # for creating OIDC tokens for signing.
+  packages: write # for uploading attestations.
+  contents: read
+
+env:
+  OIDC_PROVIDER_NAME: ${{ vars.OIDC_PROVIDER_NAME }}
+  DOCKER_REPO: ${{ vars.DOCKER_REPO }}
+  DOCKER_REMOTE: ${{ vars.DOCKER_REMOTE }}
+  PYTHON_REMOTE_REPO: ${{ vars.PYTHON_REMOTE_REPO }}
+  DEBIAN_REMOTE_REPO: ${{ vars.DEBIAN_REMOTE_REPO }}
+  IMAGE_NAME: '${{ vars.IMAGE_NAME }}:${{ github.run_number }}'
+  JF_URL: https://${{ vars.JF_URL }}/
+  JF_BUILD_NAME: 'dvr-game-build'
+  JF_BUILD_NUMBER: ${{ github.run_number }}
+  JF_PROJECT: ${{ vars.JF_PROJECT }}
+
+jobs:
+
+    cli-info:
+        name: dvr-game-build
+        runs-on: dvr-self-hosted
+        steps:
+            # Use the specific setup-cli branch
+            - name: Setup JFrog CLI
+              uses: jfrog/setup-jfrog-cli@v4
+              id: setup-cli
+              env:
+                JF_URL: https://${{ vars.JF_URL }}/
+                JF_PROJECT: ${{ vars.JF_PROJECT }}
+              with:
+                  oidc-provider-name: ${{ env.OIDC_PROVIDER_NAME }}
+            - name: Show Config
+              run: |
+                jf config show
+ 
