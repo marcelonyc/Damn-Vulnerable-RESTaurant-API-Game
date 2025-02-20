@@ -106,6 +106,10 @@ jobs:
                 # tags: ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}
                 provenance: false
 
+            - name: CLI default JPD
+              run: |
+                 jf config show
+                 
             - name: docker push
               run: |  
                  jf docker tag ${{ steps.build.outputs.imageid }} ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}
