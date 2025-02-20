@@ -35,6 +35,9 @@ jobs:
                 JF_PROJECT: ${{ vars.JF_PROJECT }}
               with:
                   oidc-provider-name: ${{ env.OIDC_PROVIDER_NAME }}
+                  custom-server-id: mdlone
+                  
+                  
  
             - name: configure jfrog environment
               run: |
