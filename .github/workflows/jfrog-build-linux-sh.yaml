@@ -34,9 +34,7 @@ jobs:
                 JF_URL: https://${{ vars.JF_URL }}/
                 JF_PROJECT: ${{ vars.JF_PROJECT }}
               with:
-                  oidc-provider-name: ${{ env.OIDC_PROVIDER_NAME }}
-                  custom-server-id: mdlone
-                  
+                  oidc-provider-name: ${{ env.OIDC_PROVIDER_NAME }}                 
                   
  
             - name: configure jfrog environment
