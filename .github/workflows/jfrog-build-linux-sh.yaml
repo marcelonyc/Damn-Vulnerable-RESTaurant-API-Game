@@ -123,7 +123,7 @@ jobs:
      
                  # Attach evidence using JFrog CLI
                  jf evd create \
-                 --package-name ${{ env.IMAGE_NAME }} \
+                 --package-name ${{ vars.IMAGE_NAME }} \
                  --package-version "${{ github.run_number }}" \
                  --package-repo-name ${{ env.DOCKER_REPO }} \
                  --key "${{ secrets.PRIVATE_KEY }}" \
