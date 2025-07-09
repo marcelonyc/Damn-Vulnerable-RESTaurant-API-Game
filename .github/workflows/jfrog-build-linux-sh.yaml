@@ -166,9 +166,9 @@ jobs:
                  jf evd create \
                  --predicate ./sign.json --predicate-type https://jfrog.com/evidence/signature/v1 \
                  --build-name "${{ env.JF_BUILD_NAME }}" \
-                 --build-number "${{ env.JF_BUILD_NUMBER }}" \
-                 --project "${{ vars.JF_PROJECT }}" \                 
-                 --key "${{ secrets.PRIVATE_KEY_NAME }}" --key-alias "${{ secrets.PRIVATE_KEY_ALIAS }}" 
+                 --build-number "${{ env.JF_BUILD_NUMBER }}" \             
+                 --key "${{ secrets.PRIVATE_KEY_NAME }}" --key-alias "${{ secrets.PRIVATE_KEY_ALIAS }}" \
+                 --project "${{ vars.JF_PROJECT }}" 
       
                  # Log the result
                  echo "🔎 Evidence attached: 'signature' 🔏"                
