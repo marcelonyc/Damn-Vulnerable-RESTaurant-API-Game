@@ -164,13 +164,11 @@ jobs:
      
                  # Attach evidence using JFrog CLI
                  jf evd create \
+                 --predicate ./sign.json --predicate-type https://jfrog.com/evidence/signature/v1 \
                  --build-name "${{ env.JF_BUILD_NAME }}" \
                  --build-number "${{ env.JF_BUILD_NUMBER }}" \
                  --project "${{ vars.JF_PROJECT }}" \                 
-                 --key "${{ secrets.PRIVATE_KEY_NAME }}" \
-                 --key-alias "${{ secrets.PRIVATE_KEY_ALIAS }}" \
-                 --predicate ./sign.json \
-                 --predicate-type https://jfrog.com/evidence/signature/v1 
+                 --key "${{ secrets.PRIVATE_KEY_NAME }}" --key-alias "${{ secrets.PRIVATE_KEY_ALIAS }}" 
       
                  # Log the result
                  echo "🔎 Evidence attached: 'signature' 🔏"                
