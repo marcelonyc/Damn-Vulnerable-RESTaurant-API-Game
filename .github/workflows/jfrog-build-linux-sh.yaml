@@ -151,6 +151,30 @@ jobs:
                 jf rt build-add-git
                 jf rt build-publish
 
+            - name: Set Signing Evidence on Build
+              run: |
+                 # Create signing evidence JSON file
+                 SIGNING_ACTOR="${{ github.actor }}"
+                 SIGNING_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+                 echo "{
+                 \"actor\": \"${SIGNING_ACTOR}\",
+                 \"date\": \"${SIGNING_DATE}\",
+                 \"is_approved\": \"true\",
+                 }" > sign.json
+     
+                 # Attach evidence using JFrog CLI
+                 jf evd create \
+                 --build-name ${{ env.JF_BUILD_NAME }} \
+                 --build-number ${{ env.JF_BUILD_NAME_NUMBER }} \
+                 --project ${{ vars.JF_PROJECT }} \                 
+                 --key "${{ secrets.PRIVATE_KEY_NAME }}" \
+                 --key-alias "${{ secrets.PRIVATE_KEY_ALIAS }}" \
+                 --predicate ./sign.json \
+                 --predicate-type https://jfrog.com/evidence/signature/v1 
+      
+                 # Log the result
+                 echo "🔎 Evidence attached: 'signature' 🔏"                
+
             # - name: Build Scan
             #   run: |
             #     jf build-scan
