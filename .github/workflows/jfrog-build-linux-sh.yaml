@@ -165,7 +165,7 @@ jobs:
                  # Attach evidence using JFrog CLI
                  jf evd create \
                  --build-name "${{ env.JF_BUILD_NAME }}" \
-                 --build-number "${{ env.JF_BUILD_NAME_NUMBER }}" \
+                 --build-number "${{ env.JF_BUILD_NUMBER }}" \
                  --project "${{ vars.JF_PROJECT }}" \                 
                  --key "${{ secrets.PRIVATE_KEY_NAME }}" \
                  --key-alias "${{ secrets.PRIVATE_KEY_ALIAS }}" \
