@@ -111,28 +111,28 @@ jobs:
                  jf docker push ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}
                  # jf docker scan ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}                   
 
-            - name: Set Signing Evidence on Docker
-              run: |
-                 # Create signing evidence JSON file
-                 SIGNING_ACTOR="${{ github.actor }}"
-                 SIGNING_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-                 echo "{
-                 \"actor\": \"${SIGNING_ACTOR}\",
-                 \"date\": \"${SIGNING_DATE}\"
-                 }" > sign.json
+            # - name: Set Signing Evidence on Docker
+            #   run: |
+            #      # Create signing evidence JSON file
+            #      SIGNING_ACTOR="${{ github.actor }}"
+            #      SIGNING_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+            #      echo "{
+            #      \"actor\": \"${SIGNING_ACTOR}\",
+            #      \"date\": \"${SIGNING_DATE}\"
+            #      }" > sign.json
      
-                 # Attach evidence using JFrog CLI
-                 jf evd create \
-                 --package-name ${{ vars.IMAGE_NAME }} \
-                 --package-version "${{ github.run_number }}" \
-                 --package-repo-name ${{ env.DOCKER_REPO }} \
-                 --key "${{ secrets.PRIVATE_KEY }}" \
-                 --key-alias SIGNING-KEY \
-                 --predicate ./sign.json \
-                 --predicate-type https://jfrog.com/evidence/signature/v1 
+            #      # Attach evidence using JFrog CLI
+            #      jf evd create \
+            #      --package-name ${{ vars.IMAGE_NAME }} \
+            #      --package-version "${{ github.run_number }}" \
+            #      --package-repo-name ${{ env.DOCKER_REPO }} \
+            #      --key "${{ secrets.PRIVATE_KEY }}" \
+            #      --key-alias SIGNING-KEY \
+            #      --predicate ./sign.json \
+            #      --predicate-type https://jfrog.com/evidence/signature/v1 
       
-                 # Log the result
-                 echo "🔎 Evidence attached: 'signature' 🔏"
+            #      # Log the result
+            #      echo "🔎 Evidence attached: 'signature' 🔏"
 
 
             - name: Publish build info
