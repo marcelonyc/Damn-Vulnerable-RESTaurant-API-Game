@@ -159,7 +159,7 @@ jobs:
                  echo "{
                  \"actor\": \"${SIGNING_ACTOR}\",
                  \"date\": \"${SIGNING_DATE}\",
-                 \"is_approved\": \"true\",
+                 \"is_approved\": \"true\"
                  }" > sign.json
      
                  # Attach evidence using JFrog CLI
