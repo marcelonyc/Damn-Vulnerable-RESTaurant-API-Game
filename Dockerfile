@@ -1,6 +1,6 @@
 ARG DOCKER_REMOTE
 ARG JF_URL
-FROM ${JF_URL}/${DOCKER_REMOTE}/python:3.8-buster as builder
+FROM ${JF_URL}/${DOCKER_REMOTE}/python:3.11.13-bullseye as builder
 
 ARG JF_URL
 ARG JF_USER
