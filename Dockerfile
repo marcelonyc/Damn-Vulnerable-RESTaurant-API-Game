@@ -29,7 +29,7 @@ ARG JF_PASSWORD
 ARG PYTHON_REMOTE_REPO
 ARG DEBIAN_REMOTE_REPO
 
-RUN echo "deb https://${JF_USER}:${JF_PASSWORD}@${JF_URL}/artifactory/dvr-game-debian-remote buster main" > /tmp/sources.list 
+RUN echo "deb https://${JF_USER}:${JF_PASSWORD}@${JF_URL}/artifactory/dvr-game-debian-remote bullseye main" > /tmp/sources.list 
 RUN cat /tmp/sources.list /etc/apt/sources.list > /tmp/new.list
 RUN cat /tmp/new.list > /etc/apt/sources.list
 
