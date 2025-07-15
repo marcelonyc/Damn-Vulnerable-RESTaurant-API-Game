@@ -21,7 +21,8 @@ RUN touch README.md
 RUN jf pip install -r requirements.txt 
 
 # The runtime image, used to just run the code provided its virtual environment
-FROM ${JF_URL}/${DOCKER_REMOTE}/python:3.8-slim-buster as runtime
+#FROM ${JF_URL}/${DOCKER_REMOTE}/python:3.8-slim-buster as runtime
+FROM builder as runtime
 
 ARG JF_URL
 ARG JF_USER
