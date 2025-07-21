@@ -19,39 +19,40 @@ env:
 
 jobs:
 
-    # python-curation-check:
-    #     # This job will fail if Curation policies are violated
-    #     name: curation-check
-    #     runs-on: dvr-self-hosted
-    #     steps:
-    #         # Use the specific setup-cli branch
-    #         - name: Setup JFrog CLI
-    #           uses: jfrog/setup-jfrog-cli@v4
-    #           id: setup-cli
-    #           env:
-    #             JF_URL: https://${{ vars.JF_URL }}/
-    #             JF_PROJECT: ${{ vars.JF_PROJECT }}
-    #           with:
-    #               oidc-provider-name: ${{ env.OIDC_PROVIDER_NAME }}                 
+    python-curation-check:
+        # This job will fail if Curation policies are violated
+        name: curation-check
+        runs-on: dvr-self-hosted
+        steps:
+            # Use the specific setup-cli branch
+            - name: Setup JFrog CLI
+              uses: jfrog/setup-jfrog-cli@v4
+              disable-auto-build-publish: true
+              id: setup-cli
+              env:
+                JF_URL: https://${{ vars.JF_URL }}/
+                JF_PROJECT: ${{ vars.JF_PROJECT }}
+              with:
+                  oidc-provider-name: ${{ env.OIDC_PROVIDER_NAME }}                 
                   
  
-    #         - name: configure jfrog environment
-    #           run: |
-    #             # Use a curated repository for python dependencies resolution
-    #             # GLOBAL will force the docker build to use the jfrog repo
-    #             jf pipc --repo-resolve=${{ env.PYTHON_REMOTE_REPO }} --global=true
+            - name: configure jfrog environment
+              run: |
+                # Use a curated repository for python dependencies resolution
+                # GLOBAL will force the docker build to use the jfrog repo
+                jf pipc --repo-resolve=${{ env.PYTHON_REMOTE_REPO }} --global=true
 
-    #         - name: Checkout
-    #           uses: actions/checkout@v4
+            - name: Checkout
+              uses: actions/checkout@v4
     
-    #         # - name: Set up Python 3.10.14
-    #         #   uses: actions/setup-python@v5.3.0
-    #         #   with:
-    #         #     python-version: 3.10.14
+            # - name: Set up Python 3.10.14
+            #   uses: actions/setup-python@v5.3.0
+            #   with:
+            #     python-version: 3.10.14
  
-    #         - name: Install python modules
-    #           run: |
-    #             jf pip install -r requirements.txt
+            - name: Install python modules
+              run: |
+                jf pip install -r requirements.txt
 
     
     build-publish-python:
@@ -65,6 +66,7 @@ jobs:
             # Use the specific setup-cli branch
             - name: Setup JFrog CLI
               uses: jfrog/setup-jfrog-cli@v4
+              disable-auto-build-publish: true
               id: setup-cli
               env:
                 JF_URL: https://${{ vars.JF_URL }}/
