@@ -59,7 +59,7 @@ jobs:
     build-publish-python:
         name: dvr-game-build
         runs-on: dvr-self-hosted
-        # needs: [ python-curation-check ]
+        needs: [ python-curation-check ]
         env:
           JF_BUILD_NAME: 'dvr-game-build'
           JF_BUILD_NUMBER: ${{ github.run_number }}
